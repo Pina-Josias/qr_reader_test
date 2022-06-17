@@ -1,0 +1,29 @@
+name: qr_code_feature
+description: This is a package to manage all logical for Data, Domain and Infraestructure.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ">=2.17.3 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  either_dart: ^0.1.4
+  equatable: ^2.0.3
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^5.0.2
+  mocktail: ^0.3.0
+
+dev_dependencies:
+  # Fake data for test
+  faker_dart: ^0.1.5
+  # Library to test dart and flutter code
+  flutter_test:
+    sdk: flutter
+  # For create a mock object to test
+  mockito: ^5.2.0
+  # static analysis
+  very_good_analysis: ^2.1.2
+
+flutter:

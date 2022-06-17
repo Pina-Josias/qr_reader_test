@@ -1,0 +1,55 @@
+name: qr_reader_test
+description: 'This is a test for Shipify Mobile Enginner application, the mobile app need to do:
+- Feedback should be given to the user in the least invasive way when a reading has been done correctly.
+- The list of stored codes should be displayed in some section of the app.
+- It should be possible to remove codes from the list.
+- If a code is a URL, it should be possible to redirect to it.
+- If a reading finds more than one code, the user should be asked which code to add.
+- Must be implemented using some software design with easy to test architecture.
+- All functions must have unit tests.
+- There is no a specific design or user experience to follow, feel free to make your own decisions.
+'
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.3 <3.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  either_dart: ^0.1.4
+  equatable: ^2.0.3
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^1.0.4
+  flutter_secure_storage:
+  get_it: ^7.2.0
+  mocktail: ^0.3.0
+  oktoast: ^3.0.0
+  page_transition: ^2.0.7
+  permission_handler: ^10.0.0
+  qr_code_feature: 
+    path: packages/feature
+  qr_code_scanner: ^1.0.0
+  url_launcher: ^6.1.3
+
+dev_dependencies:
+  # Fake data for test
+  faker: ^2.0.0
+  # Init Application Launcher
+  flutter_launcher_icons: ^0.9.3
+  # Library to test dart and flutter code
+  flutter_test:
+    sdk: flutter
+  # For create a mock object to test
+  mockito: ^5.0.10
+  # static analysis
+  very_good_analysis: ^2.1.2
+
+
+flutter:
+  uses-material-design: true
+
+
