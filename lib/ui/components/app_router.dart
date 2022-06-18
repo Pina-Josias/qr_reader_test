@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:qr_reader_test/ui/pages/home/home.dart';
-import 'package:qr_reader_test/ui/pages/qr_barcode_reader.dart/qr_barcode_reader.dart';
+import 'package:qr_reader_test/main/factories/pages/home/home_page_factory.dart';
+import 'package:qr_reader_test/main/main.dart';
 import 'package:qr_reader_test/ui/shared/shared.dart';
 
 /// Class for magage navigation page on the application
@@ -20,12 +20,12 @@ class AppRouter {
       case Routes.homeRoute:
         return _buildRoute(
           settings,
-          const HomePage(),
+          makeHomePage(),
         );
       case Routes.qrBarRoute:
         return _buildRoute(
           settings,
-          const QrBarcodeReader(),
+          makeQrBarCodeReaderDialog(),
           fullscreenDialog: true,
         );
 

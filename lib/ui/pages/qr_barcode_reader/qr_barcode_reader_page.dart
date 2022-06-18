@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_reader_test/presentation/extensions/extensions.dart';
 import 'package:qr_reader_test/ui/components/components.dart';
-import 'package:qr_reader_test/ui/pages/qr_barcode_reader.dart/components/components.dart';
+import 'package:qr_reader_test/ui/pages/qr_barcode_reader/components/qr_code_view_component.dart';
 
 /// Qr&BarCode reader page
 class QrBarcodeReader extends StatefulWidget {

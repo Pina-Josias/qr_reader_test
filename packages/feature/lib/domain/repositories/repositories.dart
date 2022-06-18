@@ -1,1 +1,1 @@
-export 'local_scanned_codes_repo.dart';
+export './local_scanned_codes_repo.dart';

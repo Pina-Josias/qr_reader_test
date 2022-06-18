@@ -35,7 +35,6 @@ class DataLocalScannedCodes implements ILocalScannedCodes {
   }
 
   @override
-  @override
   Future<ScannedCodesResultEntity> load() async {
     try {
       final _cachedData = await _storage.fetch(

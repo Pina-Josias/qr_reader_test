@@ -14,9 +14,8 @@ class HomeNotifierPresenter extends ChangeNotifier {
   })  : _deleteCode = deleteCode,
         _loadCodes = loadCodes,
         _saveCode = saveCode {
-    _loading = true;
+    _loading = false;
     _scannedCodes = List.empty();
-    _loadCodesFromUseCase();
   }
 
   /// `Use Cases Inyection`
@@ -47,17 +46,23 @@ class HomeNotifierPresenter extends ChangeNotifier {
   }
 
   /// `Procedures`
+
   /// Load codes from cache data by a use case
-  Future<void> _loadCodesFromUseCase() async {
-    final _codesResponse = await _loadCodes.call(null);
-    if (_codesResponse!.isLeft) {
-      final _failure = _codesResponse.left as CacheFailure;
-      _setScannedCodes(List.empty());
-      return Future.error(_failure);
-    }
-    final _codes = _codesResponse.right.codes;
-    _setScannedCodes(_codes);
+  Future<void> loadCodesFromUseCase() async {
     _updateLoadingState(!_loading);
+    final _codesResponse = await _loadCodes.call(null);
+    CacheFailure? _failure;
+    if (_codesResponse!.isLeft) {
+      _failure = _codesResponse.left as CacheFailure;
+      _setScannedCodes(List.empty());
+    } else {
+      _failure = null;
+      final _codes = _codesResponse.right.codes;
+      _setScannedCodes(_codes);
+    }
+
+    _updateLoadingState(!_loading);
+    if (_failure != null) return Future.error(_failure);
   }
 
   /// Save a new code to cache data by a use case
@@ -68,7 +73,7 @@ class HomeNotifierPresenter extends ChangeNotifier {
           element.code == code.code && element.codeType == code.codeType,
     );
 
-    final CacheFailure _errorFailure;
+    CacheFailure? _errorFailure;
 
     if (_exist) {
       _errorFailure = const CacheFailure(error: 'Code already exists');
@@ -81,24 +86,27 @@ class HomeNotifierPresenter extends ChangeNotifier {
     final _saveCodeResponse = await _saveCode.call(_paramsSaveCode);
     if (_saveCodeResponse!.isLeft) {
       _errorFailure = _saveCodeResponse.left as CacheFailure;
-      return Future.error(_errorFailure);
+    } else {
+      _setScannedCodes(_codesCopy);
     }
-    _setScannedCodes(_codesCopy);
     _updateLoadingState(!_loading);
+    if (_errorFailure != null) return Future.error(_errorFailure);
   }
 
   /// Save a new code to cache data by a use case
   Future<void> deleteCodeToUseCase(ScannedCodeEntity code) async {
     _updateLoadingState(!_loading);
+    CacheFailure? _errorFailure;
     final _codesCopy =
         _scannedCodes.where((element) => element != code).toList();
     final _paramsSaveCode = ParamsDeleteCode(codes: _codesCopy);
     final _saveCodeResponse = await _deleteCode.call(_paramsSaveCode);
     if (_saveCodeResponse!.isLeft) {
-      final _failure = _saveCodeResponse.left as CacheFailure;
-      return Future.error(_failure);
+      _errorFailure = _saveCodeResponse.left as CacheFailure;
+    } else {
+      _setScannedCodes(_codesCopy);
     }
-    _setScannedCodes(_codesCopy);
     _updateLoadingState(!_loading);
+    if (_errorFailure != null) return Future.error(_errorFailure);
   }
 }

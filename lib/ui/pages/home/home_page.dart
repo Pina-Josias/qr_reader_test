@@ -22,6 +22,12 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  @override
+  void initState() {
+    ref.read(homePagePresenter).loadCodesFromUseCase();
+    super.initState();
+  }
+
   void onDeletedPressed(BuildContext context, ScannedCodeEntity code) {
     ref.read(homePagePresenter).deleteCodeToUseCase(code).then((value) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
